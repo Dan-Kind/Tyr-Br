@@ -2,7 +2,7 @@
  *2D int array, each number can represent some sort of object.
   1 can be player 2 a portal so on so on. 
  */
-package dungeon.crawler;
+package dungeon.crawler.maps;
 
 /**
  *

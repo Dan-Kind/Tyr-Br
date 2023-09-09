@@ -1,5 +1,6 @@
-package dungeon.crawler;
+package dungeon.crawler.ui;
 
+import dungeon.crawler.game.GamePanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -47,7 +48,7 @@ public class UIPanel extends JPanel implements ActionListener {
 
     }
 
-    void updateHealthLabel(int health) {
+    public void updateHealthLabel(int health) {
        healthLabel.setText("Health: " + health);
     }
 }

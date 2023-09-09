@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dungeon.crawler;
+package dungeon.crawler.ui;
+import dungeon.crawler.game.GamePanel;
+import dungeon.crawler.game.GamePanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
