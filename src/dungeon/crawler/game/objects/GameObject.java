@@ -38,4 +38,9 @@ public class GameObject {
     public int getObjectID(){
         return objectID;
     }
+    
+    public void move(int newX, int newY) {
+        x = newX;
+        y = newY;
+    }
 }

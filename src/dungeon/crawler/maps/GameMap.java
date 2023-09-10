@@ -5,6 +5,7 @@
 package dungeon.crawler.maps;
 
 import dungeon.crawler.game.objects.GameObject;
+import dungeon.crawler.game.objects.Portal;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -88,5 +89,17 @@ public class GameMap {
             }
         }
     }
+    
+    public Portal getPortalById(int portalId) {
+        for (GameObject object : objects) {
+            if (object instanceof Portal) {
+                    Portal portal = (Portal) object;
+                    if (portal.getPortalID() == portalId) {
+                        return portal; // Found the portal with the specified ID
+                    }
+                }
+            }
+            return null; // Portal with the specified ID not found
+        }
     // Other methods for map manipulation or querying can be added here.
 }

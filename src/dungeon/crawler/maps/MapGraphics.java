@@ -5,6 +5,7 @@
  */
 package dungeon.crawler.maps;
 
+import dungeon.crawler.game.objects.Portal;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -32,8 +33,20 @@ public class MapGraphics {
                         g.setColor(Color.RED);
                         g.fillRect(x * tileScale, y * tileScale, tileScale, tileScale);
                     }
+                  
                     default -> {
-                        // Handle other map IDs (if necessary)
+                        // Check if the portal ID starts with "1001"
+                        String mapIdString = String.format("%04d", mapId);
+                        if (mapIdString.startsWith("1001")) {
+                            // Get the Portal object for this portal ID
+                            Portal portal = currentMap.getPortalById(mapId);
+
+                            if (portal != null) {
+                                // Set the color based on the portal's color
+                                g.setColor(portal.getPortalColor());
+                                g.fillRect(x * tileScale, y * tileScale, tileScale, tileScale);
+                            }
+                        }
                     }
                 }
                 // Add more cases for other map IDs as needed

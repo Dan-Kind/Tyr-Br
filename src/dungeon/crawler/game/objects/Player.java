@@ -27,12 +27,6 @@ public class Player extends GameObject{
         return health;
     }
 
-    // Move the player to a new position
-    public void move(int newX, int newY) {
-        x = newX;
-        y = newY;
-    }
-
     // Damage the player by reducing their health
     public void takeDamage(int damage) {
         health -= damage;

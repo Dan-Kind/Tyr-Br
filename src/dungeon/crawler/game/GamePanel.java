@@ -5,7 +5,9 @@
  */
 package dungeon.crawler.game;
 
-import dungeon.crawler.game.objects.Player;
+
+import dungeon.crawler.game.objects.*;
+
 import dungeon.crawler.maps.GameMap;
 import dungeon.crawler.maps.MapGraphics;
 import dungeon.crawler.ui.UIPanel;
@@ -24,10 +26,13 @@ public class GamePanel extends JPanel implements ActionListener{
     private final Timer gameTimer; // Timer for game loop
      // Reference to the currently active map
     
-    GameMap map = new GameMap(11,10, 0);
+    GameMap map = new GameMap(10,10, 1);
+    GameMap map2 = new GameMap(5,5, 2);
     GameMap currentMap = map;
     private UIPanel uiPanel;
     Player player = new Player(0, 0, 100, 0); // Init player (0;0) pos 100 health
+    Wall wall = new Wall(2,2,1);
+    Portal portal = new Portal(5,5,1,2);
     public final int tileScale = 50;
     public final int SCREEN_HEIGHT = tileScale*map.getHeight();
     public final int SCREEN_WIDTH = tileScale*map.getWidth();
@@ -36,8 +41,10 @@ public class GamePanel extends JPanel implements ActionListener{
     public GamePanel() {
         // Set the preferred size of the panel (adjust this according to your game's requirements)
         setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
+        currentMap.addObject(player);
+        currentMap.addObject(wall);
+        currentMap.addObject(portal);
         
-        map.setValue(2,2,2);
         gameUtils.updateMap(currentMap, g);
         // Initialize the game timer (adjust the delay as needed for your desired frame rate)
         int delay = 16; // 16 milliseconds per frame (approximately 60 FPS)
@@ -75,31 +82,37 @@ public class GamePanel extends JPanel implements ActionListener{
             // Handle key presses 
             int oldX = player.getX();
             int oldY = player.getY();
-            
+            int newX = oldX;
+            int newY = oldY;
+
             int keyCode = e.getKeyCode();
             switch (keyCode) {
                 case KeyEvent.VK_LEFT -> // Move the player left by tileScale pixels
-                    player.move(player.getX() - 1, player.getY());
+                    newX = oldX - 1;
                 case KeyEvent.VK_RIGHT -> // Move the player right by tileScale pixels
-                    player.move(player.getX() + 1, player.getY());
+                    newX = oldX + 1;
                 case KeyEvent.VK_UP -> // Move the player up by tileScale pixels
-                    player.move(player.getX() , player.getY() - 1);
+                    newY = oldY - 1;
                 case KeyEvent.VK_DOWN -> {
-                    player.move(player.getX() , player.getY() + 1);
-                    }
+                    newY = oldY + 1;
                 }
-                int path = gameUtils.collisionDetection(player.getX(), player.getY(), currentMap, player);
-                if (path == 1){
-                    gameUtils.updateMap(currentMap, g);
-                    System.out.println("Moved player without collision to:");
-                    System.out.println(player.getX() + " ; " + player.getY());
-                }
-                else {
-                    player.move(oldX, oldY);
-                    System.out.println("Player couldnt move, moved back to old cords. Collided with: " + path);
-                }
-                
             }
+
+            int path = gameUtils.collisionDetection(newX, newY, currentMap, player);
+            if (path == 1){
+                // The player can move to the new position
+                player.move(newX, newY);
+                gameUtils.updateMap(currentMap, g);
+                System.out.println("Moved player without collision to:");
+                System.out.println(player.getX() + " ; " + player.getY());
+            }
+            else {
+                // The player couldn't move, so revert to the old position
+                player.move(oldX, oldY);
+                System.out.println("Player couldn't move, moved back to old cords. Collided with: " + path);
+
+            }
+        }
     }
 }
 

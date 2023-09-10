@@ -47,7 +47,7 @@ public class Portal extends GameObject {
     public int getFromMapID(){
         return fromMapID;
     }
-    public int toFromMapID(){
+    public int getToMapID(){
         return toMapID;
     }
 }
