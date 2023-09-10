@@ -18,7 +18,7 @@ public class GameFrame extends JFrame {
         this.setTitle("Dungeon Crawler");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setSize(800, 600); // Set the frame's size explicitly
+        this.setSize(1200, 700); // Set the frame's size explicitly
         this.setLayout(new BorderLayout()); // Set the layout manager
         this.setLocationRelativeTo(null);
         this.requestFocusInWindow();

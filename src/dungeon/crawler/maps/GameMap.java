@@ -16,7 +16,7 @@ public class GameMap {
     private int[][] map; // This is a 2D array to represent your map
     private int depth;
     private int mapID;
-    
+    private String mapName;
     private List<GameObject> objects;
     
     // Constructor to initialize the map with dimensions (width x height)
@@ -27,6 +27,16 @@ public class GameMap {
         // You can initialize the map with default values here, e.g., fill it with zeros.
         // You can also load map data from a file or generate it procedurally.
     }
+    
+    public GameMap(int height, int width, int mapID, String mapName) {
+        map = new int[height][width];
+        this.mapID = mapID;
+        this.mapName = mapName;
+        this.objects = new ArrayList<>();
+        // You can initialize the map with default values here, e.g., fill it with zeros.
+        // You can also load map data from a file or generate it procedurally.
+    }
+    
     public void addObject(GameObject object) {
         objects.add(object);
     }
@@ -84,9 +94,18 @@ public class GameMap {
     }
     //Clear map
     
+    public String getMapName(){
+        if (mapName != null){
+            return mapName;
+        }
+        else {
+            return String.valueOf(mapID);
+        }
+    }
+    
     public void clearMap(){
-        for (int y = 0; y < map.length; y++) {
-            for (int x = 0; x < map[y].length; x++) {
+        for (int x = 0; x < map.length; x++) {
+            for (int y = 0; y < map[x].length; y++) {
                 map[x][y] = 0;
             }
         }

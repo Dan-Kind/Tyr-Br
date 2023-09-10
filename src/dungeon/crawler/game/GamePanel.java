@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements ActionListener{
     public int SCREEN_WIDTH;
     GameUtils gameUtils;
     private Graphics g;
+
     public GamePanel() {
         this.gameManager = new GameManager();
         this.gameUtils = new GameUtils(this, gameManager);
@@ -55,7 +56,17 @@ public class GamePanel extends JPanel implements ActionListener{
         this.setVisible(true);
         
     }
-    
+    private void calculateTileScale() {
+        int mapWidth = currentMap.getWidth();
+        int mapHeight = currentMap.getHeight();
+        int screenWidth = (int) (0.7* Toolkit.getDefaultToolkit().getScreenSize().width);
+        int screenHeight = (int) (0.8* Toolkit.getDefaultToolkit().getScreenSize().height);
+
+        // Calculate tileScale based on the map's width and height
+        tileScale = Math.min(screenWidth / mapWidth, screenHeight / mapHeight);
+        SCREEN_WIDTH = tileScale * mapWidth;
+        SCREEN_HEIGHT = tileScale * mapHeight;
+    }
     public void setUIPanel(UIPanel uiPanel) {
         this.uiPanel = uiPanel;
         player.updateUIPanel(uiPanel);
@@ -68,12 +79,27 @@ public class GamePanel extends JPanel implements ActionListener{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // This method is called when the panel needs to be repainted
-        // Put your rendering code here to draw game objects
-        
-        // For example, you can draw the player at their current position
+        //draws drig and map
         gameUtils.drawGrid(g, tileScale, SCREEN_HEIGHT, SCREEN_WIDTH);
         MapGraphics.drawMap(g, currentMap, tileScale);
+        
+        //draw map name
+        String mapName = currentMap.getMapName();
+        Font font = new Font("Arial", Font.BOLD, 36);
+        g.setFont(font);
+        g.setColor(Color.WHITE);
+        
+        // Calculate the position to center the text horizontally
+        FontMetrics fontMetrics = g.getFontMetrics(font);
+        int textWidth = fontMetrics.stringWidth(mapName);
+        int textX = (SCREEN_WIDTH - textWidth) / 2;
+        
+        // Place the text just above the map
+        int textY = fontMetrics.getHeight();
+        
+        g.drawString(mapName, textX, textY);
+        
+        
     }
    
     public class MyKeyAdapter extends KeyAdapter{
@@ -115,6 +141,7 @@ public class GamePanel extends JPanel implements ActionListener{
                 SCREEN_WIDTH = tileScale*currentMap.getWidth();
                 player.moveToMap(currentMap.getMapID());
                 currentMap.addObject(player);
+                calculateTileScale();
                 player.move(0, 0);
                 gameUtils.updateMap(currentMap, g);
             }
