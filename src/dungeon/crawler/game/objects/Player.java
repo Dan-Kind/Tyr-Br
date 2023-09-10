@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dungeon.crawler.game;
+package dungeon.crawler.game.objects;
 
 import dungeon.crawler.ui.UIPanel;
-import dungeon.crawler.util.GameObject;
+import dungeon.crawler.game.objects.GameObject;
 
 /**
  *
@@ -16,8 +16,8 @@ public class Player extends GameObject{
     private int health;    // Player's health
     private UIPanel uiPanel;
     // Constructor to initialize the player's position and health
-    public Player(int x, int y, int initialHealth) {
-        super(x,y);
+    public Player(int x, int y, int initialHealth, int mapID) {
+        super(x,y, mapID, 1);
         health = initialHealth;
         
     }

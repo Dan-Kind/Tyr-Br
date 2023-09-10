@@ -1,1 +1,5 @@
+Rework map?
+Add a collision handeler. Add collision events, and determine by id yeah
 
+Portal = x,y , från ,till,
+id som är 1001.från(4leading zero).till(4 leading zero)

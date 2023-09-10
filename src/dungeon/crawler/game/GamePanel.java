@@ -5,6 +5,7 @@
  */
 package dungeon.crawler.game;
 
+import dungeon.crawler.game.objects.Player;
 import dungeon.crawler.maps.GameMap;
 import dungeon.crawler.maps.MapGraphics;
 import dungeon.crawler.ui.UIPanel;
@@ -23,10 +24,10 @@ public class GamePanel extends JPanel implements ActionListener{
     private final Timer gameTimer; // Timer for game loop
      // Reference to the currently active map
     
-    GameMap map = new GameMap(11,10);
+    GameMap map = new GameMap(11,10, 0);
     GameMap currentMap = map;
     private UIPanel uiPanel;
-    Player player = new Player(0, 0, 100); // Init player (0;0) pos 100 health
+    Player player = new Player(0, 0, 100, 0); // Init player (0;0) pos 100 health
     public final int tileScale = 50;
     public final int SCREEN_HEIGHT = tileScale*map.getHeight();
     public final int SCREEN_WIDTH = tileScale*map.getWidth();
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener{
         setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
         
         map.setValue(2,2,2);
-        gameUtils.updatePlayerMapPos(player.getX(),player.getY(), currentMap, g);
+        gameUtils.updateMap(currentMap, g);
         // Initialize the game timer (adjust the delay as needed for your desired frame rate)
         int delay = 16; // 16 milliseconds per frame (approximately 60 FPS)
         gameTimer = new Timer(delay, this);
@@ -89,7 +90,7 @@ public class GamePanel extends JPanel implements ActionListener{
                 }
                 int path = gameUtils.collisionDetection(player.getX(), player.getY(), currentMap, player);
                 if (path == 1){
-                    gameUtils.updatePlayerMapPos(player.getX(), player.getY(), currentMap, g);
+                    gameUtils.updateMap(currentMap, g);
                     System.out.println("Moved player without collision to:");
                     System.out.println(player.getX() + " ; " + player.getY());
                 }

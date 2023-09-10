@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dungeon.crawler.util;
+package dungeon.crawler.game.objects;
 
 /**
  *
@@ -12,10 +12,14 @@ package dungeon.crawler.util;
 public class GameObject {
     protected int x;
     protected int y;
-
-    public GameObject(int x, int y) {
+    protected int mapID;
+    protected int objectID;
+    
+    public GameObject(int x, int y, int mapID, int objectID) {
         this.x = x;
         this.y = y;
+        this.mapID = mapID;
+        this.objectID = objectID;
     }
 
     // Common methods and properties for all game objects
@@ -25,5 +29,13 @@ public class GameObject {
 
     public int getY() {
         return y;
+    }
+    
+    public int getMapID() {
+        return mapID;
+    }
+    
+    public int getObjectID(){
+        return objectID;
     }
 }
