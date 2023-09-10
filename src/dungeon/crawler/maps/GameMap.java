@@ -30,7 +30,9 @@ public class GameMap {
     public void addObject(GameObject object) {
         objects.add(object);
     }
-
+    public void removeObject(GameObject object){
+        objects.remove(object);
+    }
     public List<GameObject> getObjects() {
         return objects;
     }

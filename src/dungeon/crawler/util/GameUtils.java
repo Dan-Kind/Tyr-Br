@@ -14,7 +14,6 @@ import dungeon.crawler.game.objects.Wall;
 import dungeon.crawler.maps.GameMap;
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.*;
 import java.util.List;
 /**
  *
@@ -22,8 +21,10 @@ import java.util.List;
  */
 public class GameUtils {
     private final GamePanel gamePanel;
-    public GameUtils(GamePanel gamePanel) {
+    private final GameManager gameManager;
+    public GameUtils(GamePanel gamePanel, GameManager gameManager) {
         this.gamePanel = gamePanel;
+        this.gameManager = gameManager;
     }
     
     public int collisionDetection(int newX, int newY, GameMap currentMap, Player player) {
@@ -32,7 +33,8 @@ public class GameUtils {
         if (path == 0) {
             // No collision
             return 1;
-        } else if (path == 2) {
+        } 
+        else if (path == 2) {
             
             // Collision with a wall
             int playerX = player.getX();
@@ -81,24 +83,27 @@ public class GameUtils {
                 System.out.println("Player moved to: " + newX + " ; " + newY);
 
                 return 1; // No collision, as the wall has been pushed
-            } else {
+            } 
+            else {
                 // Wall cannot be pushed as the adjacent cell is not empty
                 return 2; // Return a code indicating a collision with an immovable object (wall)
             }
         } 
         else if (path >= 1001) {
+            System.out.println("Portal");
+        
             // Collision with a portal (assuming portal IDs are 1001 or higher)
             int portalId = path;
 
             // Find the portal object using the portal ID
             Portal portal = currentMap.getPortalById(portalId);
-
+            
             if (portal != null) {
                 // Get the destination map ID from the portal
                 int destinationMapId = portal.getToMapID();
-
+                System.out.println(destinationMapId);
                 // Switch to the new map by updating currentMap
-                GameManager.loadMap(destinationMapId);
+                gameManager.loadMap(destinationMapId);
 
                 // Move the player to the new map
                 player.move(newX, newY);
@@ -106,18 +111,16 @@ public class GameUtils {
                 // Update the UI or perform other actions as needed
                 // For example, you can update the UI to show the new map's name or other information.
 
-                return 1; // Successful portal collision
+                return 1001; // Successful portal collision
+            }
         }
         else {
             // Collision with other objects (e.g., portals)
             player.takeDamage(1);
             return path;
         }
+        return path;
     }
-            
-
-    
-
     public void updateMap(GameMap currentMap, Graphics g){
          // Clear the map
         currentMap.clearMap();

@@ -26,25 +26,25 @@ public class GamePanel extends JPanel implements ActionListener{
     private final Timer gameTimer; // Timer for game loop
      // Reference to the currently active map
     
-    GameMap map = new GameMap(10,10, 1);
-    GameMap map2 = new GameMap(5,5, 2);
-    GameMap currentMap = map;
+    private GameManager gameManager;
+    private final Player player;
+    GameMap currentMap;
     private UIPanel uiPanel;
-    Player player = new Player(0, 0, 100, 0); // Init player (0;0) pos 100 health
-    Wall wall = new Wall(2,2,1);
-    Portal portal = new Portal(5,5,1,2);
-    public final int tileScale = 50;
-    public final int SCREEN_HEIGHT = tileScale*map.getHeight();
-    public final int SCREEN_WIDTH = tileScale*map.getWidth();
-    GameUtils gameUtils = new GameUtils(this);
+    public int tileScale = 50;
+    public int SCREEN_HEIGHT;
+    public int SCREEN_WIDTH;
+    GameUtils gameUtils;
     private Graphics g;
     public GamePanel() {
+        this.gameManager = new GameManager();
+        this.gameUtils = new GameUtils(this, gameManager);
+        this.player = gameManager.getPlayer();
+        System.out.println(player);
+        this.currentMap = gameManager.getCurrentMap();
+        this.SCREEN_HEIGHT = tileScale*currentMap.getHeight();
+        this.SCREEN_WIDTH = tileScale*currentMap.getWidth();
         // Set the preferred size of the panel (adjust this according to your game's requirements)
         setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
-        currentMap.addObject(player);
-        currentMap.addObject(wall);
-        currentMap.addObject(portal);
-        
         gameUtils.updateMap(currentMap, g);
         // Initialize the game timer (adjust the delay as needed for your desired frame rate)
         int delay = 16; // 16 milliseconds per frame (approximately 60 FPS)
@@ -102,9 +102,21 @@ public class GamePanel extends JPanel implements ActionListener{
             if (path == 1){
                 // The player can move to the new position
                 player.move(newX, newY);
+                
                 gameUtils.updateMap(currentMap, g);
                 System.out.println("Moved player without collision to:");
                 System.out.println(player.getX() + " ; " + player.getY());
+            }
+            else if (path == 1001){
+                //portal map change
+                currentMap.removeObject(player);
+                currentMap = gameManager.getCurrentMap();
+                SCREEN_HEIGHT = tileScale*currentMap.getHeight();
+                SCREEN_WIDTH = tileScale*currentMap.getWidth();
+                player.moveToMap(currentMap.getMapID());
+                currentMap.addObject(player);
+                player.move(0, 0);
+                gameUtils.updateMap(currentMap, g);
             }
             else {
                 // The player couldn't move, so revert to the old position

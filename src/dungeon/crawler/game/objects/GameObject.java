@@ -43,4 +43,8 @@ public class GameObject {
         x = newX;
         y = newY;
     }
+    
+    public void moveToMap(int newMapID){
+        mapID = newMapID;
+    }
 }
