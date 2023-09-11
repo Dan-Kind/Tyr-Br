@@ -6,6 +6,7 @@
 package dungeon.crawler.ui;
 
 import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -14,7 +15,16 @@ import javax.swing.JPanel;
  */
 public class CraftingPanel extends JPanel {
     public CraftingPanel() {
-        setBackground(Color.WHITE);
+        setBackground(Color.LIGHT_GRAY);
         // Add your crafting components here
+        // Create a new JLabel with the text "crafting"
+        JLabel craftingLabel = new JLabel("<html><span style='font-size: 20px; color: white; text-shadow: 2px 2px black;'>crafting</span></html>");
+
+        // Set the alignment of the JLabel to center
+        craftingLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        // Add the craftingLabel to the panel
+        add(craftingLabel);
+        
     }
 }

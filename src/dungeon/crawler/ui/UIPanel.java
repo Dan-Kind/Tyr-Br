@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ public class UIPanel extends JPanel implements ActionListener {
         healthLabel = new JLabel("Health: ");
         healthLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Set font and size
         healthLabel.setForeground(Color.RED); // Set foreground color
+        healthLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         add(healthLabel);
     }
 
