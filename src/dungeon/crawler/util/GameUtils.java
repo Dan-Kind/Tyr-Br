@@ -89,7 +89,7 @@ public class GameUtils {
                 return 2; // Return a code indicating a collision with an immovable object (wall)
             }
         } 
-        else if (path >= 1001) {
+        else if (String.valueOf(path).startsWith("1001")) {
             System.out.println("Portal");
         
             // Collision with a portal (assuming portal IDs are 1001 or higher)
