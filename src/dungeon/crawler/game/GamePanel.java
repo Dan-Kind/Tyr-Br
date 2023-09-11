@@ -10,6 +10,7 @@ import dungeon.crawler.game.objects.*;
 
 import dungeon.crawler.maps.GameMap;
 import dungeon.crawler.maps.MapGraphics;
+import dungeon.crawler.ui.GameFrame;
 import dungeon.crawler.ui.UIPanel;
 import dungeon.crawler.util.GameUtils;
 import java.awt.*;
@@ -59,13 +60,18 @@ public class GamePanel extends JPanel implements ActionListener{
     private void calculateTileScale() {
         int mapWidth = currentMap.getWidth();
         int mapHeight = currentMap.getHeight();
-        int screenWidth = (int) (0.7* Toolkit.getDefaultToolkit().getScreenSize().width);
-        int screenHeight = (int) (0.8* Toolkit.getDefaultToolkit().getScreenSize().height);
+        int screenWidth = getWidth(); // Get the current panel width
+        int screenHeight = getHeight(); // Get the current panel height
 
-        // Calculate tileScale based on the map's width and height
-        tileScale = Math.min(screenWidth / mapWidth, screenHeight / mapHeight);
+        // Calculate tileScale based on the current screen size
+        tileScale = (int) Math.min((double) screenWidth / mapWidth, (double) screenHeight / mapHeight);
+
+        // Recalculate the screen dimensions based on the new tileScale
         SCREEN_WIDTH = tileScale * mapWidth;
         SCREEN_HEIGHT = tileScale * mapHeight;
+
+        // Repaint the panel to reflect the changes
+        repaint();
     }
     public void setUIPanel(UIPanel uiPanel) {
         this.uiPanel = uiPanel;
@@ -137,8 +143,7 @@ public class GamePanel extends JPanel implements ActionListener{
                 //portal map change
                 currentMap.removeObject(player);
                 currentMap = gameManager.getCurrentMap();
-                SCREEN_HEIGHT = tileScale*currentMap.getHeight();
-                SCREEN_WIDTH = tileScale*currentMap.getWidth();
+                calculateTileScale();
                 player.moveToMap(currentMap.getMapID());
                 currentMap.addObject(player);
                 calculateTileScale();
