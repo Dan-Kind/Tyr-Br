@@ -20,6 +20,7 @@ public class Inventory {
     public Inventory(int size) {
         this.weight = 0;
         this.size = size;
+        this.items = new ArrayList<>();
     }
     
     

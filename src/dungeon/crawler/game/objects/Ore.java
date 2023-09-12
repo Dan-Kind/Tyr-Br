@@ -12,14 +12,17 @@ import items.GameItem;
  * @author 0607dacs
  */
 public class Ore extends GameObject {
-    GameItem itemDrop;
-    public Ore(int x, int y, int mapID,  GameItem itemDrop) {
-        super(x, y, mapID, 1002);
-        this.itemDrop = itemDrop;
+    private final OreType oreType;
+    private int durability;
+
+    public Ore(int x, int y, int mapID, OreType oreType, int durability) {
+        super(x, y, mapID, oreType.getId());
+        this.oreType = oreType;
+        this.durability = durability;
     }
-    
-    public GameItem getDrop(){
-        //drop mechanics here
-        return itemDrop;
+
+    public GameItem getDrop() {
+        // Implement drop mechanics based on the oreType
+        return oreType.getDroppedItem();
     }
 }

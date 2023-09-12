@@ -1,6 +1,7 @@
 package dungeon.crawler.maps;
 
 import dungeon.crawler.game.objects.*;
+import static dungeon.crawler.game.objects.OreType.IRON_ORE;
 import items.GameItem;
 import java.awt.Color;
 
@@ -30,10 +31,7 @@ public class GameMapConfig {
 
     private GameMap createMap1() {
         GameMap map = new GameMap(10, 10, 1);
-        GameItem ironOreMat;
-        ironOreMat = new GameItem(null,1,5,"iron ore");
-        Ore ironOre = new Ore(9,0,1, ironOreMat);
-        ironOreMat.setOwner(ironOre);
+        Ore ironOre = new Ore(9,0,1, IRON_ORE, 1);
         Wall wall = new Wall(2, 2, 1);
         Portal portal = new Portal(5, 5, 1, 2);
 

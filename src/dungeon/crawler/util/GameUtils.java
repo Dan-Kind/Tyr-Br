@@ -8,6 +8,7 @@ package dungeon.crawler.util;
 import dungeon.crawler.game.GameManager;
 import dungeon.crawler.game.objects.GameObject;
 import dungeon.crawler.game.GamePanel;
+import dungeon.crawler.game.objects.Ore;
 import dungeon.crawler.game.objects.Player;
 import dungeon.crawler.game.objects.Portal;
 import dungeon.crawler.game.objects.Wall;
@@ -112,6 +113,30 @@ public class GameUtils {
                 // For example, you can update the UI to show the new map's name or other information.
 
                 return 1001; // Successful portal collision
+            }
+        }
+        else if (String.valueOf(path).startsWith("1002")){
+            // ore collision
+            System.out.println("collided with ore");
+            int oreId = path;
+            Ore ore = currentMap.getOreByIdAndPosition(oreId, newX, newY);
+
+            if (ore != null) {
+                // Check if the player can carry the ore based on their strength
+
+                // Add the ore to the player's inventory
+                boolean addedToInventory = player.addItemToInventory(ore.getDrop());
+
+                if (addedToInventory) {
+                    // Remove the ore from the map
+                    currentMap.removeObject(ore);
+                    return 1002; // Successful ore collision and addition to inventory
+                } else {
+                    // Inventory is full, cannot add the ore
+                    return 3; // Return code for full inventory
+                }
+
+         
             }
         }
         else {

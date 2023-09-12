@@ -5,6 +5,7 @@
 package dungeon.crawler.maps;
 
 import dungeon.crawler.game.objects.GameObject;
+import dungeon.crawler.game.objects.Ore;
 import dungeon.crawler.game.objects.Portal;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,17 @@ public class GameMap {
             }
         }
     }
-    
+    public Ore getOreByIdAndPosition(int oreId, int x, int y) {
+        for (GameObject object : objects) {
+            if (object instanceof Ore) {
+                Ore ore = (Ore) object;
+                if (ore.getObjectID() == oreId && ore.getX() == x && ore.getY() == y) {
+                    return ore; // Found the matching Ore
+                }
+            }
+        }
+        return null; // Ore not found with the specified ID and position
+    }
     public Portal getPortalById(int portalId) {
         for (GameObject object : objects) {
             if (object instanceof Portal) {

@@ -17,6 +17,7 @@ public class GameItem {
     private String name;
     private int durability;
     private int weight;
+    private int value;
      /**
      * Creates a new `GameItem` with the specified attributes.
      *
@@ -58,4 +59,5 @@ public class GameItem {
     public void setOwner(GameObject owner) {
         this.owner = owner;
     }
+    
 }
