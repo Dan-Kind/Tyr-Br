@@ -15,10 +15,12 @@ import dungeon.crawler.game.objects.GameObject;
 public class Player extends GameObject{
     private int health;    // Player's health
     private UIPanel uiPanel;
+    private final Inventory inventory;
     // Constructor to initialize the player's position and health
     public Player(int x, int y, int initialHealth, int mapID) {
         super(x,y, mapID, 1);
         health = initialHealth;
+        this.inventory = new Inventory(10);
         
     }
     
