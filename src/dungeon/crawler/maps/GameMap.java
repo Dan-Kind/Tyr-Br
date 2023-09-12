@@ -35,6 +35,7 @@ public class GameMap {
         this.objects = new ArrayList<>();
         // You can initialize the map with default values here, e.g., fill it with zeros.
         // You can also load map data from a file or generate it procedurally.
+        
     }
     
     public void addObject(GameObject object) {

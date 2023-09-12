@@ -90,9 +90,22 @@ public class MapGraphics {
                                 drawTextOnMap(portalText, 30,g, x, y, tileScale);
                             }
                         }
+                        else if (mapIdString.startsWith("1002")) {
+                            // Code for drawing ores...
+                     
+                           
+                            // Set the color for the ore (adjust as needed)
+                            g.setColor(Color.ORANGE);
+                            g.fillRect(x * tileScale, y * tileScale, tileScale, tileScale);
+
+                            // Draw additional information about the ore (if needed)
+                            String oreInfo = "Iron Ore"; // Replace with the relevant information
+                            drawTextOnMap(oreInfo, 30, g, x, y, tileScale);
+                            
+                            }
                     }
+                    // Add more cases for other map IDs as needed
                 }
-                // Add more cases for other map IDs as needed
             }
         }
     }

@@ -13,12 +13,13 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 
 public class GameFrame extends JFrame {
-
+    public static final int WINDOW_WIDTH = 1280;
+    public static final int WINDOW_HEIGHT = 720;
     public GameFrame() {
         this.setTitle("Dungeon Crawler");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setSize(1200, 700); // Set the frame's size explicitly
+        this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT); // Set the frame's size explicitly
         this.setLayout(new BorderLayout()); // Set the layout manager
         this.setLocationRelativeTo(null);
         this.requestFocusInWindow();
