@@ -16,7 +16,7 @@ public class UIPanel extends JPanel implements ActionListener {
     private JPanel cardPanel;
     private GamePanel gamePanel;
     private JLabel healthLabel; // Declare a JLabel for displaying health
-    
+    private JLabel staminaLabel;
     public UIPanel(JPanel cardPanel, GamePanel gamePanel) {
         this.cardPanel = cardPanel;
         this.cardLayout = (CardLayout) cardPanel.getLayout();
@@ -33,8 +33,12 @@ public class UIPanel extends JPanel implements ActionListener {
         healthLabel = new JLabel("Health: ");
         healthLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Set font and size
         healthLabel.setForeground(Color.RED); // Set foreground color
-        healthLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         add(healthLabel);
+        // Init stamina label
+        staminaLabel = new JLabel("Stamina: ");
+        staminaLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Set font and size
+        staminaLabel.setForeground(Color.YELLOW); // Set foreground color
+        add(staminaLabel);
     }
 
     @Override
@@ -53,4 +57,9 @@ public class UIPanel extends JPanel implements ActionListener {
     public void updateHealthLabel(int health) {
        healthLabel.setText("Health: " + health);
     }
+
+    public void updateStaminaLabel(int stamina) {
+        staminaLabel.setText("Stamina: " + stamina);
+    }
+    
 }

@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 public class InventoryPanel extends JPanel{
     public final int SCREEN_HEIGHT = 500;
     public final int SCREEN_WIDTH = 220;
+    private JLabel inventoryLabel;
      public InventoryPanel() {
         setBackground(Color.CYAN);
         // Add your inventory components here
@@ -29,14 +30,14 @@ public class InventoryPanel extends JPanel{
         setLayout(new GridLayout(0, 1)); // Use a vertical layout for items
         // Set the alignment of the JLabel to center
         inventoryLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        this.inventoryLabel = inventoryLabel;
         // Add the inventoryLabel to the panel
         add(inventoryLabel);
         setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
     }
     public void updateInventory(Inventory inventory) {
         removeAll(); // Remove all previous inventory items from the panel
-        
+        add(inventoryLabel);
         // Add a label for each item in the updated inventory
         for (GameItem item : inventory.getItems()) {
             JLabel itemLabel = new JLabel(item.getName());

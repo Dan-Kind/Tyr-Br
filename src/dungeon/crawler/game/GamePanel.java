@@ -87,6 +87,7 @@ public class GamePanel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
+        player.updateUIPanel(uiPanel);
     }
 
     @Override
@@ -138,35 +139,38 @@ public class GamePanel extends JPanel implements ActionListener{
             }
 
             int path = gameUtils.collisionDetection(newX, newY, currentMap, player);
-            if (path == 1){
-                // The player can move to the new position
-                player.move(newX, newY);
-                
-                gameUtils.updateMap(currentMap, g);
-                System.out.println("Moved player without collision to:");
-                System.out.println(player.getX() + " ; " + player.getY());
-            }
-            else if (path == 1001){
-                //portal map change
-                currentMap.removeObject(player);
-                currentMap = gameManager.getCurrentMap();
-                calculateTileScale();
-                player.moveToMap(currentMap.getMapID());
-                currentMap.addObject(player);
-                calculateTileScale();
-                player.move(0, 0);
-                gameUtils.updateMap(currentMap, g);
-            }
-            else if (String.valueOf(path).startsWith("1002")){
-                System.out.println("ORE COLLISIOn");
-                gameUtils.updateMap(currentMap, g);
-                player.updateInventory(inventoryPanel);
-            }
-            else {
-                // The player couldn't move, so revert to the old position
-                player.move(oldX, oldY);
-                System.out.println("Player couldn't move, moved back to old cords. Collided with: " + path);
+            if (player.canMove()){
+                if (path == 1){
+                    // The player can move to the new position
+                    player.move(newX, newY);
+                    player.movePlayerStamina();
+                    player.updateUIPanel(uiPanel);
+                    gameUtils.updateMap(currentMap, g);
+                    System.out.println("Moved player without collision to:");
+                    System.out.println(player.getX() + " ; " + player.getY());
+                }
+                else if (path == 1001){
+                    //portal map change
+                    currentMap.removeObject(player);
+                    currentMap = gameManager.getCurrentMap();
+                    calculateTileScale();
+                    player.moveToMap(currentMap.getMapID());
+                    currentMap.addObject(player);
+                    calculateTileScale();
+                    player.move(0, 0);
+                    gameUtils.updateMap(currentMap, g);
+                }
+                else if (String.valueOf(path).startsWith("1002")){
+                    System.out.println("ORE COLLISIOn");
+                    gameUtils.updateMap(currentMap, g);
+                    player.updateInventory(inventoryPanel);
+                }
+                else {
+                    // The player couldn't move, so revert to the old position
+                    player.move(oldX, oldY);
+                    System.out.println("Player couldn't move, moved back to old cords. Collided with: " + path);
 
+                }
             }
         }
     }
