@@ -23,11 +23,16 @@ public class Inventory {
         this.items = new ArrayList<>();
     }
     
+    public List<GameItem> getItems(){
+        return items;
+    }
     
     
     public boolean addItem(GameItem item) {
         // Return ture if item has been added, false is item not added (inventory full)
-        if (this.getItemCount() >= this.getSize()){
+        System.out.println(this.getItemCount() + "..." + this.getSize() );
+        if (this.getItemCount() <= this.getSize()){
+            System.out.println("Adding item");
             items.add(item);
             weight += item.getWeight();
             return true;

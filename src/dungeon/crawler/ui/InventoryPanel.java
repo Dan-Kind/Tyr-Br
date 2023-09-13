@@ -5,6 +5,7 @@
  */
 package dungeon.crawler.ui;
 
+import dungeon.crawler.game.objects.Inventory;
 import items.GameItem;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,11 +34,11 @@ public class InventoryPanel extends JPanel{
         add(inventoryLabel);
         setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
     }
-    public void updateInventory(List<GameItem> inventory) {
+    public void updateInventory(Inventory inventory) {
         removeAll(); // Remove all previous inventory items from the panel
         
         // Add a label for each item in the updated inventory
-        for (GameItem item : inventory) {
+        for (GameItem item : inventory.getItems()) {
             JLabel itemLabel = new JLabel(item.getName());
             itemLabel.setHorizontalAlignment(JLabel.CENTER);
             add(itemLabel);

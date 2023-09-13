@@ -5,6 +5,7 @@
  */
 package dungeon.crawler.maps;
 
+import dungeon.crawler.game.objects.OreType;
 import dungeon.crawler.game.objects.Portal;
 import java.awt.Color;
 import java.awt.Font;
@@ -97,10 +98,15 @@ public class MapGraphics {
                             // Set the color for the ore (adjust as needed)
                             g.setColor(Color.ORANGE);
                             g.fillRect(x * tileScale, y * tileScale, tileScale, tileScale);
+                            int oreId = Integer.parseInt(mapIdString);
+                            OreType oreType = OreType.getOreTypeById(oreId);
 
-                            // Draw additional information about the ore (if needed)
-                            String oreInfo = "Iron Ore"; // Replace with the relevant information
-                            drawTextOnMap(oreInfo, 30, g, x, y, tileScale);
+                            if (oreType != null) {
+                                // Draw additional information about the ore
+                                String oreInfo = oreType.getName(); // Replace with the relevant information
+                                drawTextOnMap(oreInfo, 30, g, x, y, tileScale);
+                            }
+                         
                             
                             }
                     }

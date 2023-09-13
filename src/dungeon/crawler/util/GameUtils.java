@@ -130,6 +130,7 @@ public class GameUtils {
                 if (addedToInventory) {
                     // Remove the ore from the map
                     currentMap.removeObject(ore);
+                    
                     return 1002; // Successful ore collision and addition to inventory
                 } else {
                     // Inventory is full, cannot add the ore

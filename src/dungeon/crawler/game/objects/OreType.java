@@ -7,15 +7,16 @@ package dungeon.crawler.game.objects;
 
 import items.GameItem;
 import items.RawOre;
-import static items.RawOreType.RAW_IRON_ORE;
+import static items.RawOreType.*;
 
 /**
  *
  * @author 0607dacs
  */
 public enum OreType {
-    IRON_ORE(10020001, "Iron Ore", 5, new RawOre(null, RAW_IRON_ORE));
-    //GOLD_ORE(10020002, "Gold Ore", 3, GameItems.GOLD_ORE_ITEM),
+    IRON_ORE(10020001, "Iron Ore", 5, new RawOre(null, RAW_IRON_ORE)),
+    GOLD_ORE(10020002, "Gold Ore", 3, new RawOre(null, RAW_GOLD_ORE)),
+    ;
     //SILVER_ORE(10020003, "Silver Ore", 4, GameItems.SILVER_ORE_ITEM);
 
     private final int id;
@@ -44,5 +45,13 @@ public enum OreType {
 
     public GameItem getDroppedItem() {
         return droppedItem;
+    }
+    public static OreType getOreTypeById(int id) {
+    for (OreType oreType : OreType.values()) {
+        if (oreType.getId() == id) {
+            return oreType;
+        }
+    }
+    return null; // Return null if no matching ID is found
     }
 }

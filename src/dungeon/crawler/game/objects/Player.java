@@ -7,6 +7,7 @@ package dungeon.crawler.game.objects;
 
 import dungeon.crawler.ui.UIPanel;
 import dungeon.crawler.game.objects.GameObject;
+import dungeon.crawler.ui.InventoryPanel;
 import items.GameItem;
 
 /**
@@ -57,6 +58,9 @@ public class Player extends GameObject{
     public void updateUIPanel(UIPanel uiPanelInput){
         this.uiPanel = uiPanelInput;
         uiPanel.updateHealthLabel(health);
+    }
+    public void updateInventory(InventoryPanel inventoryPanel){
+        inventoryPanel.updateInventory(inventory);
     }
      public int getStrength() {
         return strength;

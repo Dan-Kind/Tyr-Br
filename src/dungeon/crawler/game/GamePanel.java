@@ -11,6 +11,7 @@ import dungeon.crawler.game.objects.*;
 import dungeon.crawler.maps.GameMap;
 import dungeon.crawler.maps.MapGraphics;
 import dungeon.crawler.ui.GameFrame;
+import dungeon.crawler.ui.InventoryPanel;
 import dungeon.crawler.ui.UIPanel;
 import dungeon.crawler.util.GameUtils;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private final Player player;
     GameMap currentMap;
     private UIPanel uiPanel;
+    private InventoryPanel inventoryPanel;
     public int tileScale = 50;
     public int SCREEN_HEIGHT;
     public int SCREEN_WIDTH;
@@ -77,6 +79,11 @@ public class GamePanel extends JPanel implements ActionListener{
         this.uiPanel = uiPanel;
         player.updateUIPanel(uiPanel);
     }
+    public void setInventoryPanel(InventoryPanel inventoryPanel){
+        this.inventoryPanel = inventoryPanel;
+        player.updateInventory(inventoryPanel);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
@@ -149,6 +156,11 @@ public class GamePanel extends JPanel implements ActionListener{
                 calculateTileScale();
                 player.move(0, 0);
                 gameUtils.updateMap(currentMap, g);
+            }
+            else if (String.valueOf(path).startsWith("1002")){
+                System.out.println("ORE COLLISIOn");
+                gameUtils.updateMap(currentMap, g);
+                player.updateInventory(inventoryPanel);
             }
             else {
                 // The player couldn't move, so revert to the old position

@@ -41,6 +41,7 @@ public class GameFrame extends JFrame {
         UIPanel uiPanel = new UIPanel(cardPanel, gamePanel);
         uiPanel.setBackground(Color.BLUE);
         gamePanel.setUIPanel(uiPanel);
+        gamePanel.setInventoryPanel(inventoryPanel);
         this.add(uiPanel, BorderLayout.SOUTH);
         
         this.add(cardPanel, BorderLayout.EAST);
